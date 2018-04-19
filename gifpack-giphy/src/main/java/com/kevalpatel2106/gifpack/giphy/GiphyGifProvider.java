@@ -132,8 +132,8 @@ public final class GiphyGifProvider implements GifProviderProtocol {
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject images = data.getJSONObject(i).getJSONObject("images");
                     Gif gif = new Gif(images.getJSONObject("original").getString("url"),
-                            images.has("preview_gif") ? images.getJSONObject("preview_gif").getString("url") : null,
-                            images.has("original_mp4") ? images.getJSONObject("original_mp4").getString("mp4") : null);
+                            images.has("preview_gif") && images.getJSONObject("preview_gif").has("url") ? images.getJSONObject("preview_gif").getString("url") : null,
+                            images.has("original_mp4") && images.getJSONObject("original_mp4").has("mp4") ? images.getJSONObject("original_mp4").getString("mp4") : null);
                     gifs.add(gif);
                 }
                 return gifs;
