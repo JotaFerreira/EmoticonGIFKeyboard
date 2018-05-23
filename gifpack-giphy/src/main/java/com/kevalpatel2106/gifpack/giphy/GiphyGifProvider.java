@@ -132,8 +132,9 @@ public final class GiphyGifProvider implements GifProviderProtocol {
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject images = data.getJSONObject(i).getJSONObject("images");
                     Gif gif = new Gif(images.getJSONObject("original").getString("url"),
-                            images.has("fixed_height_small") ? images.getJSONObject("fixed_height_small").getString("webp") : null,
-                            images.has("fixed_height_small") ? images.getJSONObject("fixed_height_small").getString("width")
+                            images.has("fixed_height_small") && images.getJSONObject("fixed_height_small").has("web") ? images.getJSONObject("fixed_height_small").getString("webp") : null,
+                            images.has("fixed_height_small") && images.getJSONObject("fixed_height_small").has("width") &&
+                                    images.getJSONObject("fixed_height_small").haa("height") ? images.getJSONObject("fixed_height_small").getString("width")
                               + "x" + images.getJSONObject("fixed_height_small").getString("height"): null);
                     gifs.add(gif);
                 }
@@ -179,8 +180,9 @@ public final class GiphyGifProvider implements GifProviderProtocol {
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject images = data.getJSONObject(i).getJSONObject("images");
                     Gif gif = new Gif(images.getJSONObject("original").getString("url"),
-                            images.has("fixed_height_small") ? images.getJSONObject("fixed_height_small").getString("webp") : null,
-                            images.has("fixed_height_small") ? images.getJSONObject("fixed_height_small").getString("width")
+                            images.has("fixed_height_small") && images.getJSONObject("fixed_height_small").has("web") ? images.getJSONObject("fixed_height_small").getString("webp") : null,
+                            images.has("fixed_height_small") && images.getJSONObject("fixed_height_small").has("width") &&
+                                    images.getJSONObject("fixed_height_small").haa("height") ? images.getJSONObject("fixed_height_small").getString("width")
                               + "x" + images.getJSONObject("fixed_height_small").getString("height"): null);
                     gifs.add(gif);
                 }
