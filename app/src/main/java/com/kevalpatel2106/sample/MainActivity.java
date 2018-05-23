@@ -17,15 +17,17 @@
 package com.kevalpatel2106.sample;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.bumptech.glide.Glide;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.kevalpatel2106.emoticongifkeyboard.EmoticonGIFKeyboardFragment;
 import com.kevalpatel2106.emoticongifkeyboard.emoticons.Emoticon;
 import com.kevalpatel2106.emoticongifkeyboard.emoticons.EmoticonSelectListener;
@@ -35,8 +37,6 @@ import com.kevalpatel2106.emoticongifkeyboard.widget.EmoticonEditText;
 import com.kevalpatel2106.emoticongifkeyboard.widget.EmoticonTextView;
 import com.kevalpatel2106.emoticonpack.android7.Android7EmoticonProvider;
 import com.kevalpatel2106.emoticonpack.android8.Android8EmoticonProvider;
-import com.kevalpatel2106.emoticonpack.ios.IosEmoticonProvider;
-import com.kevalpatel2106.emoticonpack.windows10.Windows10EmoticonProvider;
 import com.kevalpatel2106.gifpack.giphy.GiphyGifProvider;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final AppCompatImageView gifImageView = findViewById(R.id.selected_git_iv);
+        final SimpleDraweeView gifImageView = findViewById(R.id.selected_git_iv);
 
         //Set the emoticon text view.
         final EmoticonTextView textView = findViewById(R.id.selected_emoticons_tv);
@@ -129,16 +129,15 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onGifSelected(@NonNull Gif gif) {
                         //Do something with the selected GIF.
-                        Log.d(TAG, "onGifSelected: " + gif.getGifUrl());
-                        Glide.with(MainActivity.this)
-                                .load(gif.getGifUrl())
-                                .asGif()
-                                .placeholder(R.mipmap.ic_launcher)
-                                .into(gifImageView);
+                        Log.d(TAG, "onGifSelected: " + gif.getWebpUrl() + ";" + gif.getSizeGif());
+                        Uri uri = Uri.parse(gif.getWebpUrl());
+                        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                                .setUri(uri)
+                                .setAutoPlayAnimations(true)
+                                .build();
+                        gifImageView.setController(controller);
                     }
                 });
-
-
 
         /*
           Create instance of emoticon gif keyboard by passing emoticon and gif config. If you pass null

@@ -17,14 +17,16 @@
 package com.kevalpatel2106.emoticongifkeyboard.internal.gif;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.kevalpatel2106.emoticongifkeyboard.R;
 import com.kevalpatel2106.emoticongifkeyboard.gifs.Gif;
 
@@ -71,13 +73,12 @@ final class GifSearchAdapter extends RecyclerView.Adapter<GifSearchAdapter.GifVi
     public void onBindViewHolder(GifViewHolder holder, int position) {
         final Gif gif = mData.get(position);
         if (gif != null) {
-            Glide.with(mContext)
-                    .load(gif.getPreviewGifUrl())
-                    .asGif()
-                    .crossFade()
-                    .centerCrop()
-                    .into(holder.gifIv);
-
+            Uri uri = Uri.parse(gif.getWebpUrl());
+            DraweeController controller = Fresco.newDraweeControllerBuilder()
+                    .setUri(uri)
+                    .setAutoPlayAnimations(true)
+                    .build();
+            holder.gifIv.setController(controller);
             holder.gifIv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -106,7 +107,7 @@ final class GifSearchAdapter extends RecyclerView.Adapter<GifSearchAdapter.GifVi
         /**
          * Image view to display GIFs.
          */
-        ImageView gifIv;
+        SimpleDraweeView gifIv;
 
         GifViewHolder(View itemView) {
             super(itemView);

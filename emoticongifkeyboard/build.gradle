@@ -21,7 +21,7 @@ apply from: '../gradle/deps.gradle'
 
 android {
     compileSdkVersion buidlConfig.compile
-    buildToolsVersion buidlConfig.buildToolVersion
+    buildToolsVersion '27.0.3'
 
     compileOptions {
         sourceCompatibility javaCompatibility.sourceCompatibility
@@ -49,7 +49,9 @@ dependencies {
     implementation(otherLib.sqliteassethelper)
     implementation supportLib.recyclerView
     implementation supportLib.appCompat
-    implementation(otherLib.glide)
+    implementation(otherLib.fresco)
+    implementation(otherLib.frescoanimatedwebp)
+    implementation(otherLib.frescowebpsupport)
     implementation supportLib.annotations
 }
 

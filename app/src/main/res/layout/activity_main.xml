@@ -103,7 +103,7 @@
                 android:textColor="@android:color/white"
                 app:emojiconSize="30sp"/>
 
-            <android.support.v7.widget.AppCompatImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/selected_git_iv"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"

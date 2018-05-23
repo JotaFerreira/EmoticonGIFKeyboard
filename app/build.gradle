@@ -19,8 +19,7 @@ apply from: '../gradle/config.gradle'
 apply from: '../gradle/deps.gradle'
 
 android {
-    compileSdkVersion buidlConfig.compile
-    buildToolsVersion buidlConfig.buildToolVersion
+    compileSdkVersion 26
 
     compileOptions {
         sourceCompatibility javaCompatibility.sourceCompatibility
@@ -48,6 +47,7 @@ android {
     lintOptions lintOption
     aaptOptions aaptOption
     dexOptions dexOption
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
@@ -67,8 +67,9 @@ dependencies {
     implementation project(':emoticonpack-samsung')
     implementation project(':emoticonpack-htc')
     implementation project(':emoticonpack-lg')
-
     implementation 'com.android.support:multidex:1.0.2'
-    implementation(otherLib.glide)
+    implementation(otherLib.fresco)
+    implementation(otherLib.frescoanimatedwebp)
+    implementation(otherLib.frescowebpsupport)
     implementation supportLib.appCompat
 }

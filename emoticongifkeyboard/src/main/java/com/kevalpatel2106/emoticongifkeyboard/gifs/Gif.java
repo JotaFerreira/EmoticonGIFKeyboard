@@ -53,28 +53,28 @@ public final class Gif implements Parcelable {
      * Preview GIF url to use as thumbnail.
      */
     @Nullable
-    private final String previewGifUrl;
+    private final String webpUrl;
 
     /**
      * MP4 video url for the image.
      */
     @Nullable
-    private final String mp4Url;
+    private final String sizeGif;
 
     /**
      * Public construction.
      *
      * @param gifUrl        Full scale GIF URL.
-     * @param previewGifUrl Preview scale GIF URL.
-     * @param mp4Url MP4 video url for the image.
+     * @param webpUrl Preview scale GIF URL.
+     * @param sizeGif MP4 video url for the image.
      */
     @SuppressWarnings("ConstantConditions")
-    public Gif(@NonNull String gifUrl, @Nullable String previewGifUrl, @Nullable String mp4Url) {
+    public Gif(@NonNull String gifUrl, @Nullable String webpUrl, @Nullable String sizeGif) {
         if (gifUrl == null) throw new IllegalArgumentException("GIF url cannot be null.");
 
         this.gifUrl = gifUrl;
-        this.previewGifUrl = previewGifUrl;
-        this.mp4Url = mp4Url;
+        this.webpUrl = webpUrl;
+        this.sizeGif = sizeGif;
     }
 
     /**
@@ -87,17 +87,17 @@ public final class Gif implements Parcelable {
         if (gifUrl == null) throw new IllegalArgumentException("GIF url cannot be null.");
 
         this.gifUrl = gifUrl;
-        this.previewGifUrl = null;
-        this.mp4Url = null;
+        this.webpUrl = null;
+        this.sizeGif = null;
     }
 
     /**
      * Constructor for parcelable object.
      */
     public Gif(Parcel in) {
-        this.previewGifUrl = in.readString();
+        this.webpUrl = in.readString();
         this.gifUrl = in.readString();
-        this.mp4Url = in.readString();
+        this.sizeGif = in.readString();
 
         //noinspection ConstantConditions
         if (gifUrl == null) throw new IllegalArgumentException("GIF url cannot be null.");
@@ -110,8 +110,18 @@ public final class Gif implements Parcelable {
      * @return URL of the preview scale GIF.
      */
     @NonNull
-    public String getPreviewGifUrl() {
-        return previewGifUrl == null ? gifUrl : previewGifUrl;
+    public String getWebpUrl() {
+        return webpUrl == null ? gifUrl : webpUrl;
+    }
+
+    /**
+     * Get the size of the GIF.
+     *
+     * @return size of the GIF.
+     */
+    @NonNull
+    public String getSizeGif() {
+        return sizeGif;
     }
 
     /**
@@ -134,9 +144,9 @@ public final class Gif implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(previewGifUrl);
+        dest.writeString(webpUrl);
         dest.writeString(gifUrl);
-        dest.writeString(mp4Url);
+        dest.writeString(sizeGif);
     }
 
     @Override
